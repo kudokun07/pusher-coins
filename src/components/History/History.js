@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import './History.css'
-import axios from 'axios';
+import axios from 'axios'
+import moment from 'moment'
 
 export default class History extends Component {
 	constructor() {
@@ -8,9 +9,9 @@ export default class History extends Component {
 		this.state = {
 			todayprice: {},
 			yesterdayprice: {},
-			twodayprice: {},
-			threedayprice: {},
-			fourdayprice: {}
+			twodaysprice: {},
+			threedaysprice: {},
+			fourdaysprice: {}
 		}
 		this.getBTCPrices = this.getBTCPrices.bind(this)
 		this.getETHPrices = this.getETHPrices.bind(this)
@@ -29,7 +30,83 @@ export default class History extends Component {
 		return axios.get('https://min-api.cryptocompare.com/data/pricehistorical?fsym=LTC&tsyms=USD&ts=' + date)
 	}
 
-	
+	getTodayPrice = () => {
+		let t = moment().unix()
+		axios.all([this.getBTCPrices(t), this.getETHPrices(t), this.getLTCPrices(t)])
+				.then(axios.spread((btc, eth, ltc) => {
+					let f = {
+						date: moment.unix(t).format("MMMM Do YYYY"),
+						btc: btc.data.BTC.USD,
+						eth: eth.data.ETH.USD,
+						ltc: ltc.data.LTC.USD
+					}
+					this.setState({todayprice: f})
+				}))
+	}
+
+	getYesterdayPrice = () => {
+		let t = moment().subtract(1, 'days').unix();
+		axios.all([this.getBTCPrices(t), this.getETHPrices(t), this.getLTCPrices(t)])
+				.then(axios.spread((btc, eth, ltc) => {
+					let f = {
+						date: moment.unix(t).format("MMMM Do YYYY"),
+						btc: btc.data.BTC.USD,
+						eth: eth.data.ETH.USD,
+						ltc: ltc.data.LTC.USD
+					}
+					this.setState({yesterdayprice: f})
+				}))
+	}
+
+	getTwoDaysPrice = () => {
+		let t = moment().subtract(2, 'days').unix()
+		axios.all([this.getBTCPrices(t), this.getETHPrices(t), this.getLTCPrices(t)])
+				.then(axios.spread((btc, eth, ltc) => {
+					let f = {
+						date: moment.unix(t).format("MMMM Do YYYY"),
+						btc: btc.data.BTC.USD,
+						eth: eth.data.ETH.USD,
+						ltc: ltc.data.LTC.USD
+					}
+					this.setState({twodaysprice: f})
+				}))
+	}
+
+	getThreeDaysPrice = () => {
+		let t = moment().subtract(3, 'days').unix()
+		axios.all([this.getBTCPrices(t), this.getETHPrices(t), this.getLTCPrices(t)])
+				.then(axios.spread((btc, eth, ltc) => {
+					let f = {
+						date: moment.unix(t).format("MMMM Do YYYY"),
+						btc: btc.data.BTC.USD,
+						eth: eth.data.ETH.USD,
+						ltc: ltc.data.LTC.USD
+					}
+					this.setState({threedaysprice: f})
+				}))
+	}
+
+	getFourDaysPrice = () => {
+		let t = moment().subtract(4, 'days').unix()
+		axios.all([this.getBTCPrices(t), this.getETHPrices(t), this.getLTCPrices(t)])
+				.then(axios.spread((btc, eth, ltc) => {
+					let f = {
+						date: moment.unix(t).format("MMMM Do YYYY"),
+						btc: btc.data.BTC.USD,
+						eth: eth.data.ETH.USD,
+						ltc: ltc.data.LTC.USD
+					}
+					this.setState({fourdaysprice: f})
+				}))
+	}
+
+	componentWillMount() {
+		this.getTodayPrice()
+		this.getYesterdayPrice()
+		this.getTwoDaysPrice()
+		this.getThreeDaysPrice()
+		this.getFourDaysPrice()
+	}
   
   render() {
     return (
@@ -61,39 +138,39 @@ export default class History extends Component {
 						</div>
 					</div>
 					<div className="history--section__box__inner">
-						<h4>{this.state.twodayprice.date}</h4>
+						<h4>{this.state.twodaysprice.date}</h4>
 						<div className="collumn">
-							<p>1 BTC = {this.state.twodayprice.btc}</p>
+							<p>1 BTC = {this.state.twodaysprice.btc}</p>
 						</div>
 						<div className="collumn">
-							<p>1 ETH = {this.state.twodayprice.eth}</p>
+							<p>1 ETH = {this.state.twodaysprice.eth}</p>
 						</div>
 						<div className="collumn">
-							<p>1 LTC = {this.state.twodayprice.ltc}</p>
-						</div>
-					</div>
-					<div className="history--section__box__inner">
-						<h4>{this.state.threedayprice.date}</h4>
-						<div className="collumn">
-							<p>1 BTC = {this.state.threedayprice.btc}</p>
-						</div>
-						<div className="collumn">
-							<p>1 ETH = {this.state.threedayprice.eth}</p>
-						</div>
-						<div className="collumn">
-							<p>1 LTC = {this.state.threedayprice.ltc}</p>
+							<p>1 LTC = {this.state.twodaysprice.ltc}</p>
 						</div>
 					</div>
 					<div className="history--section__box__inner">
-						<h4>{this.state.fourdayprice.date}</h4>
+						<h4>{this.state.threedaysprice.date}</h4>
 						<div className="collumn">
-							<p>1 BTC = {this.state.fourdayprice.btc}</p>
+							<p>1 BTC = {this.state.threedaysprice.btc}</p>
 						</div>
 						<div className="collumn">
-							<p>1 ETH = {this.state.fourdayprice.eth}</p>
+							<p>1 ETH = {this.state.threedaysprice.eth}</p>
 						</div>
 						<div className="collumn">
-							<p>1 LTC = {this.state.fourdayprice.ltc}</p>
+							<p>1 LTC = {this.state.threedaysprice.ltc}</p>
+						</div>
+					</div>
+					<div className="history--section__box__inner">
+						<h4>{this.state.fourdaysprice.date}</h4>
+						<div className="collumn">
+							<p>1 BTC = {this.state.fourdaysprice.btc}</p>
+						</div>
+						<div className="collumn">
+							<p>1 ETH = {this.state.fourdaysprice.eth}</p>
+						</div>
+						<div className="collumn">
+							<p>1 LTC = {this.state.fourdaysprice.ltc}</p>
 						</div>
 					</div>
 				</div>

@@ -5,13 +5,17 @@ import Icon from 'react-icons-kit'
 export default class Navigation extends Component {
   render() {
     return (
-      <div className="nav-container">
-        <div className="nav-brand"><p></p></div>
-        <ul className="coin-icons">
-            {/* <li><Icon size='32' icon={}/> </li>
-            <li><Icon size='32' icon={}/> </li>
-            <li><Icon size='32' icon={}/> </li> */}
-        </ul>
+      <div className="topheader">
+        <header className="container">
+            <nav className="navbar">
+                <div className="navbar-brand">
+                    <span className="navbar-item">PusherCoins</span>
+                </div>
+                <div className="navbar-end">
+                    <a className="navbar-item" href="https://pusher.com" target="_blank" rel="noopener noreferrer">Pusher.com</a>
+                </div>
+            </nav>
+        </header>
       </div>
     )
   }

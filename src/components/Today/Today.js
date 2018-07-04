@@ -11,12 +11,11 @@ export default class Today extends Component {
       ltcprice: '',
       ethprice: ''
     }
-
   }
 
   componentWillMount() {
     axios.get('https://min-api.cryptocompare.com/data/pricemulti?fsyms=BTC,ETH,LTC&tsyms=USD')
-         .then(response => {
+        .then(response => {
           const { BTC, ETH, LTC } = response.data  
           
           this.setState({
@@ -24,16 +23,11 @@ export default class Today extends Component {
             ethprice: ETH.USD,
             ltcprice: LTC.USD
           })
-         })
-         .catch(error => {
-           console.log(error)
-         })
+        })
+        .catch(error => {
+          console.log(error)
+        })
   }
-
-
-
-
-
   render() {
     return (
       <div className="today--section container">

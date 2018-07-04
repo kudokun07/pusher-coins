@@ -7,15 +7,16 @@
         font-size: 20px;
     }
     .today--section__box {
-      background-color: white;
-      padding: 20px;
-      margin: 20px 0;
-      border-radius: 4px;
-      box-shadow: 0 1px 2px 0 rgba(0, 0 0, 0.5);  
+        background-color: rgb(255, 255, 255);
+        padding: 20px;
+        margin: 20px 0;
+        border-radius: 4px;
+        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.5); 
     }
     .btc--section {
         text-align: center;
         border-right: 1px solid #DAE1E9;
+        padding: 0 20px;
     }
     .btc--section h5 {
         font-size: 30px;
@@ -34,7 +35,7 @@
         font-size: 30px;
     }
 
-@media (max-width: 480px) {
+@media screen and (max-width: 480px) {
     .eth--section {
         border-right: none;
     }
