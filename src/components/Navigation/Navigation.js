@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
 
-import Icon from 'react-icons-kit'
-
 export default class Navigation extends Component {
   render() {
     return (
